@@ -12,9 +12,7 @@ class ApiController extends Controller
     public function getProducts(): JsonResponse
     {
         $products = Product::where('active', 1)
-            ->with(['category' => function ($query) {
-                $query->select('id', 'title');
-            }]);
+            ->with('category:id,title');
 
         return response()->json([
             'success' => true,
@@ -25,9 +23,7 @@ class ApiController extends Controller
 
     public function getProductDetails(Request $request, $id): JsonResponse
     {
-        $product = Product::where('id', $id)->with(['category' => function ($query) {
-            $query->select('id', 'title');
-        }])->first();
+        $product = Product::where('id', $id)->with('category:id,title')->first();
 
         if (is_null($product)) {
             return response()->json([
