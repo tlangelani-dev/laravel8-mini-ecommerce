@@ -16,9 +16,11 @@ class ProductCategoryTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('product_categories')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-        $categories = ['HDD', 'CPU', 'RAM', 'Motherboard', 'Accessories', 'Cables', 'Monitor', 'Laptop', 'Keyboard & Mouse'];
+        $categories = ['Storage', 'CPU', 'RAM', 'Motherboard', 'Accessories', 'Cables', 'Monitor', 'Laptop', 'Keyboard & Mouse'];
         foreach ($categories as $category) {
             ProductCategory::create([
                 'title' => $category,
